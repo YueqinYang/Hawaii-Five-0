@@ -3,7 +3,7 @@ Hawaii-Five-0
 _____________________________________
 Create Repository:
 
-Navigate to workspace (for all commands do this)
+Navigate to workspace (for all commands do this)\n
 Type - git clone https://github.com/AyrtonStout/Hawaii-Five-0
 
 ____________________________________
