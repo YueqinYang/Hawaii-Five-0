@@ -10,6 +10,7 @@ ____________________________________
 Upload to github or update files:
 
 git add [filename(s)]
+
 git commit -m "Your message here"
 git push origin master
 
