@@ -9,8 +9,7 @@ Type - git clone https://github.com/AyrtonStout/Hawaii-Five-0
 ____________________________________
 Upload to github or update files:
 
-git add [filename(s)]
-
+git add [filename(s)]\n
 git commit -m "Your message here"
 git push origin master
 
