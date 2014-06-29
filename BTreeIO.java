@@ -34,19 +34,20 @@ public class BTreeIO {
 			e.printStackTrace();
 		}
 
+		//Removes everything leading up to the first set of gene sequences
 		String input = "";
 		while (input.compareTo("ORIGIN") != 0)	{
 			input = scan.nextLine().trim();
 		}
 
-		//TODO this currently will only parse the first series of genes from a given file. It will not continue after it has encountered its first '/'
+		//TODO This currently will only parse the first series of genes from a given file. It will not continue after it has encountered its first '/'
 		while (scan.hasNext())	{
 			String line = scan.nextLine();
 			for (int i = 0; i < line.length(); i++)	{
 				char next = line.charAt(i);
-				if (next == '/')
+				if (next == '/') //This will break out of the loop when the gene sequence ended by finding this character
 					break;
-				if (next > '9')
+				if (next > '9') //This will discard all numbers from the gene sequence
 					builder.append(line.charAt(next));
 			}
 		}
