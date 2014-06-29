@@ -61,8 +61,8 @@ public class BTreeIO {
 	/**
 	 * Returns 1 + the next gene sequence as a long data type, or 0 if there is no more data.
 	 *  
-	 * @return The gene sequence plus a leading 1 to prevent loss of leading zeroes. Example, the gene sequence "AGT" would be returned as "1001011", or "CA" would be
-	 * returned as "1000".
+	 * @return The gene sequence plus a leading 1 to prevent loss of leading zeroes. Example, the gene sequence "AGT" would be returned as "1001011", 
+	 * or "CA" would be returned as "10100".
 	 */
 	public long getNextLong()	{
 		long rval = nextLong;
