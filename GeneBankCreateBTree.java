@@ -31,6 +31,7 @@ public class GeneBankCreateBTree {
 			} else if (args.length == 5) {
 				cacheSize = Integer.parseInt(args[5]);
 			} else if(args.length == 6) {
+				cacheSize = Integer.parseInt(args[5]);
 				debugLevel = Integer.parseInt(args[6]);
 				} 
 		}catch (IllegalArgumentException e) {
