@@ -9,7 +9,7 @@ import java.util.Scanner;
  * a long, and hold onto it until it is asked to return it through the getNextLong() method. Any time the getNextLong() method is called, this class will automatically 
  * grab the next valid gene sequence. It is recommended to always check to see if BTreeIO hasNext() before calling getNextLong(), or it will return 0s.
  */
-public class BTreeIO {
+public class BTreeParser {
 
 	private String parsedInput;
 	private int fileIndex = 0;
@@ -23,7 +23,7 @@ public class BTreeIO {
 	 * @param fileName The file name of the gene bank file to be parsed.
 	 * @param sequenceLength The length of the gene sequences to be parsed from the gene bank file.
 	 */
-	public BTreeIO(String fileName, int sequenceLength)	{
+	public BTreeParser(String fileName, int sequenceLength)	{
 		this.sequenceLength = sequenceLength;
 
 		StringBuilder builder = new StringBuilder();
