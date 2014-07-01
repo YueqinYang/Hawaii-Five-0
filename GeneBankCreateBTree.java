@@ -46,11 +46,11 @@ public class GeneBankCreateBTree {
 			System.exit(1);
 		}
 
-                // if cache is used the cache size shall be specified
-                if(ifCache == 1 && args.length == 4){
-                	System.error.println("please specify the cache size.");
-                	System.exit(1);
-                }
+// if cache is used the cache size shall be specified
+if(ifCache == 1 && args.length == 4){
+System.error.println("please specify the cache size.");
+System.exit(1);
+}
 		// check if the args are correct according to the program design and
 		// print the error message
 		if ((ifCache < 0 || ifCache > 1) || (degree < 1) || (sequenceLength < 1 || sequenceLength > 31) || (cacheSize <0) || (debugLevel<0 || debugLevel>1)) {
