@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * @author astout
- * The BTreeIO class will parse the genebank file passed into its constructor and discard all non-gene data. It will then grab the first gene sequence, convert it into 
+ * The BTreeParser class will parse the genebank file passed into its constructor and discard all non-gene data. It will then grab the first gene sequence, convert it into 
  * a long, and hold onto it until it is asked to return it through the getNextLong() method. Any time the getNextLong() method is called, this class will automatically 
  * grab the next valid gene sequence. It is recommended to always check to see if BTreeIO hasNext() before calling getNextLong(), or it will return 0s.
  */
@@ -17,7 +17,7 @@ public class BTreeParser {
 	private int sequenceLength;
 
 	/**
-	 * BTreeIO when created will parse the given genebank file and discard all non-gene data that it contains. 
+	 * BTreeParser when created will parse the given genebank file and discard all non-gene data that it contains. 
 	 * It will then hold onto the next gene sequence to be returned.
 	 * 
 	 * @param fileName The file name of the gene bank file to be parsed.
@@ -34,30 +34,23 @@ public class BTreeParser {
 			e.printStackTrace();
 		}
 
-		//Removes everything leading up to the first set of gene sequences
-		String input = "";
-		while (input.compareTo("ORIGIN") != 0)	{
-			input = scan.nextLine().trim();
-		}
+		while (scan.hasNextLine())	{
 
-		//TODO This currently will only parse the first series of genes from a given file. It will not continue after it has encountered its first '/'
-		while (scan.hasNext())	{
-			String line = scan.nextLine();
-			for (int i = 0; i < line.length(); i++)	{
-				char next = line.charAt(i);
-				if (next == '/') //This will break out of the loop when the gene sequence ended by finding this character
-					break;
-				if (next > '9') //This will discard all numbers from the gene sequence
-					builder.append(line.charAt(next));
+			//Removes everything between set of gene sequences
+			String input = "";
+			while (scan.hasNextLine() && input.compareTo("ORIGIN") != 0)	{
+				input = scan.nextLine().trim();
 			}
+			//Once section of genes is found, parse it and then return to finding more genes
+			parseSection(scan, builder);
 		}
-
 		parsedInput = builder.toString();
 
+		
 		nextLong = findNextLong();
 
 	}
-	
+
 	/**
 	 * Returns 1 + the next gene sequence as a long data type, or 0 if there is no more data.
 	 *  
@@ -69,7 +62,7 @@ public class BTreeParser {
 		nextLong = findNextLong();
 		return rval;
 	}
-	
+
 	/**
 	 * Returns whether or not there is more DNA data to be returned.
 	 * 
@@ -79,6 +72,19 @@ public class BTreeParser {
 		if (nextLong == 0)
 			return false;
 		return true;
+	}
+	
+	private void parseSection(Scanner scan, StringBuilder builder)		{
+		while (scan.hasNext())	{
+			String line = scan.nextLine();
+			for (int i = 0; i < line.length(); i++)	{
+				char next = line.charAt(i);
+				if (next == '/') //This will break out of the loop when the gene sequence ended by finding this character
+					break;
+				if (next > '9') //This will discard all numbers from the gene sequence
+					builder.append(next);
+			}
+		}
 	}
 
 	/**
