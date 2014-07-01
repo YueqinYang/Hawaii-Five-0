@@ -2,14 +2,20 @@ import java.io.File;
 
 
 public class GeneBankSearch {
-
+	
+	
+	private static File btreeFile;
+	private static File queryFile;
+	private static BufferedReader bufferReader;
+	private static FileReader fileReader;
+	
 	public static void main(String[] args) {
 			
 			int ifCache = 0;
 			int cacheSize = 0;
 			int debugLevel = 0;
-			File btreeFile;
-			File queryFile;
+			//File btreeFile;
+			//File queryFile;
 			
 			// check if the length of args are valid
 			if (args.length != 4 && args.length != 5 && args.length != 6){
@@ -37,12 +43,41 @@ public class GeneBankSearch {
 				System.exit(1);
 			}
 
+                        // if the user choose to use cache, the cache size shall be specified
+                        if(ifCache == 1 && args.length == 3){
+                 	System.out.println("ERROR: Please specify the cache size.")
+                        }
 			// check if the args are correct according to the program design and
 			// print the error message
 			if ((ifCache < 0 || ifCache > 1) || (cacheSize <0) || (debugLevel<0 || debugLevel>1)) {
 				errorMessage();
 				System.exit(1);
 			}
+			
+			try{
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 		
 		
