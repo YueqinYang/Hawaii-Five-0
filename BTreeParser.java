@@ -112,6 +112,7 @@ public class BTreeParser {
 	 * @return The gene sequence converted into binary, or 0 if the gene sequence was invalid. 
 	 */
 	private long stringToLong(String input)	{
+		input = input.toLowerCase();
 		long output = 1;
 		for (int i = 0; i < input.length(); i++)	{
 			switch(input.charAt(i))	{
