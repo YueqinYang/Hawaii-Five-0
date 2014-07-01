@@ -54,8 +54,17 @@ public class GeneBankSearch {
 				System.exit(1);
 			}
 			
+			
+			//read the object from query file and search in the BTree
 			try{
-				
+				String str;
+				str = (String) bufferReader.readLine();
+				while(str!=null){
+					
+					
+					
+					
+				}
 				
 				
 				
