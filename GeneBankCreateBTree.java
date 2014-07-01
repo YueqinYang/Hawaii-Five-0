@@ -21,7 +21,14 @@ public class GeneBankCreateBTree {
 		// try-catch block to check if the args are legal format and print the error message
 		try {
 			ifCache = Integer.parseInt(args[0]);
+			
+			// if the user specifies 0 for degree, the program will choose a optimum degree 
+			// based on the disk block size of 4096 bytes
+			if(!args[1].equals("0"){
 			degree = Integer.parseInt(args[1]);
+			}else{
+				degree = findOptimumDegree();
+			}
 			gbkFile = new File(args[2]);
 			sequenceLength = Integer.parseInt(args[3]);
 
@@ -39,6 +46,11 @@ public class GeneBankCreateBTree {
 			System.exit(1);
 		}
 
+                // if cache is used the cache size shall be specified
+                if(ifCache == 1 && args.length == 4){
+                	System.error.println("please specify the cache size.");
+                	System.exit(1);
+                }
 		// check if the args are correct according to the program design and
 		// print the error message
 		if ((ifCache < 0 || ifCache > 1) || (degree < 1) || (sequenceLength < 1 || sequenceLength > 31) || (cacheSize <0) || (debugLevel<0 || debugLevel>1)) {
@@ -48,7 +60,9 @@ public class GeneBankCreateBTree {
 	}
 	
 	
-	
+	public static void findOptimumDegree(){
+		return 0; // to be added
+	}
 	
 	
 	private static void errorMessage() {
