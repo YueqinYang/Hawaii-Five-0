@@ -64,6 +64,9 @@ public class GeneBankSearch {
 					
 					
 					
+				}catch(IOException e){
+					e.printStackTrace();
+					System.exit(1);
 				}
 				
 				
