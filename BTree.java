@@ -16,25 +16,25 @@ public class BTree {
 	 * @return
 	 */
 	public BTreeNode BTree_Search(BTreeNode x, Key key){
-	int i = 1;
-	while (i <= x.getNumKeys() && key.getKey() > x.getKey(i)){
-		i = i+1;//Increments i
-	}
-	if (i <= x.getNumKeys() && key.getKey() == x.getKey(i)){
-//		return (x, i); //Book notation? Page 492
-	}
-	else{
-		if (x.isLeaf == true){ 
-			return null; 
+		int i = 1;
+		while (i <= x.getNumKeys() && key.getKey() > x.getKey(i)){
+			i = i+1;//Increments i
+		}
+		if (i <= x.getNumKeys() && key.getKey() == x.getKey(i)){
+			//		return (x, i); //Book notation? Page 492
 		}
 		else{
-			Disk_Read(x.child(i)){ //Book Notation. Page 492
-				return BTree_Search(x.child(i), key); //csubi represents child
+			if (x.isLeaf == true){ 
+				return null; 
+			}
+			else{
+				Disk_Read(x.child(i)){ //Book Notation. Page 492
+					return BTree_Search(x.child(i), key); //csubi represents child
+				}
 			}
 		}
 	}
-	}
-	
+
 	/**
 	 * Create an empty B-Tree
 	 * Pulled from page 492 of textbook
@@ -44,9 +44,9 @@ public class BTree {
 		Disk_Write(x); //Disk Write x
 		//TODO: Need to create a root node for BTreeNode array
 		T.root = x; //Sets Array T's root as x
-		
+
 	}
-	
+
 	/**
 	 * Operation for splitting child node
 	 * i represents the index number
@@ -84,7 +84,7 @@ public class BTree {
 		Disk_Write(z);
 		Disk_Write(x);
 	}
-	
+
 	/**
 	 * Inserts a key into BTree T in a single pass
 	 * down. 
@@ -95,7 +95,7 @@ public class BTree {
 		if (r.numKeys == 2t -1){
 			//TODO: Need to not initialize as 0,0
 			BTreeNode s = new BTreeNode(0);
-			
+
 			T.root = s;
 			s.isLeaf = false;
 			s.numKeys = 0;
@@ -107,7 +107,7 @@ public class BTree {
 			BTree_Insert_NonFull(r, key);
 		}
 	}
-	
+
 	/**
 	 * Inserts a key into a nonfull BTreeNode x
 	 * Page 495 of textbook
@@ -115,13 +115,13 @@ public class BTree {
 	public void BTree_Insert_NonFull(BTreeNode x, Key key){
 		int i = (int) x.numKeys;
 		if (x.isLeaf == true){
-		while (i >= 1 && key.getKey() < x.getKey( i)){
-			Key tempKey = new Key(x.getKey(i), x.getFrequency(i));
-			x.setKey(tempKey,  i + 1);
-		}
-		x.setKey(key, i + 1);
-		x.numKeys = x.numKeys + 1;
-		Disk_Write(x);
+			while (i >= 1 && key.getKey() < x.getKey( i)){
+				Key tempKey = new Key(x.getKey(i), x.getFrequency(i));
+				x.setKey(tempKey,  i + 1);
+			}
+			x.setKey(key, i + 1);
+			x.numKeys = x.numKeys + 1;
+			Disk_Write(x);
 		}
 		else{
 			while(i >= 1 && key.getKey() < x.getKey(i)){
@@ -138,7 +138,7 @@ public class BTree {
 			}
 		}
 	}
-	
+
 
 
 	/**
@@ -146,40 +146,65 @@ public class BTree {
 	 * @author Josh White, Ayrton Stout, Yueqin Yang
 	 *
 	 */
-	public class BTreeNode { //Class for BTreeNode
+	public static class BTreeNode {               //Class for BTreeNode
 		private long key= 0, position = 0; //Long's for key value and position in BTree
-		private int frequency = 0; //Number of times same node has been encountered in BTree
+		private int frequency = 0;         //Number of times same node has been encountered in BTree
 		//TODO degree is inherited from BTree class
-		private int degree = 0; //Degree is zero NEEDS TO NOT BE HERE> DON"T WANT SQUIGGLY RED LINES!
-		private long numKeys = 0; //Represents current number of keys in Node. Pg. 488. 
-		private boolean isLeaf; //Boolean for if current node is a leaf. Pg. 488.
+		private int degree = 0;            //Degree is zero NEEDS TO NOT BE HERE> DON"T WANT SQUIGGLY RED LINES!
+		private long numKeys = 0;          //Represents current number of keys in Node. Pg. 488. 
+		private boolean isLeaf;            //Boolean for if current node is a leaf. Pg. 488.
 		private Key[] keys;
-		private int[] pointers;
-	
-		
+		private long[] pointers;
+
+
 		/**
-		 * Creates the BTreeNode Object
+		 * Creates an empty BTreeNode Object
 		 * @param key
 		 * @param position
 		 */
-		private BTreeNode(long position){
-			this.position = position; //Stores the position within the object
-			keys = new Key[2*degree -1];//Array of keys 
-			pointers = new int[2*degree]; //Array of pointers
-			numKeys = 0; //Initial number of keys is zero.
-			isLeaf = true; //Initially sets node up as a leaf node. 
+		public BTreeNode(){
+			keys = new Key[2*degree -1];   //Array of keys 
+			pointers = new long[2*degree];  //Array of pointers
+			numKeys = 0;                   //Initial number of keys is zero.
+			isLeaf = true;                 //Initially sets node up as a leaf node. 
 		}
 		
+		public BTreeNode(boolean isLeaf, Key[] keys, long[] pointers)	{
+			this.isLeaf = isLeaf;
+			this.keys = keys;
+			this.pointers = pointers;
+			//TODO figure out numkeys?
+		}
+
 		/**
 		 * Method that returns the key value 
 		 * held by the BTreeNode object at a 
 		 * specific index.
 		 * @return key
 		 */
-		private long getKey(int i){
+		public long getKey(int i){
 			return keys[i].getKey();//Return key
-			
+
 		}
+
+		/**
+		 * Returns the array of keys stored by a BTreeNode
+		 * 
+		 * @return The array of keys
+		 */
+		public Key[] getKeys()	{
+			return keys;
+		}
+
+		/**
+		 * The offset used in the RandomAccessFile for each child of this node
+		 * 
+		 * @return An array of pointers to this node's children
+		 */
+		public long[] getPointers()	{
+			return pointers;
+		}
+
 		/**
 		 * Method that returns the frequency
 		 * value held by the BTreeNode object
@@ -187,10 +212,10 @@ public class BTree {
 		 * @param i represents index
 		 * @return frequency
 		 */
-		private int getFrequency(int i){
+		public int getFrequency(int i){
 			return keys[i].getFrequency();
 		}
-	
+
 		/**
 		 * Method setter that sets a key
 		 * in the BTreeNode to the key 
@@ -198,7 +223,7 @@ public class BTree {
 		 * @param key
 		 * @param index
 		 */
-		private void setKey(Key key, int index){
+		public void setKey(Key key, int index){
 			//TODO Finish this method.
 		}
 		/**
@@ -206,7 +231,7 @@ public class BTree {
 		 * number of keys in a BTreeNode
 		 * @return number of keys
 		 */
-		private long getNumKeys(){
+		public long getNumKeys(){
 			return numKeys;
 		}
 		/**
@@ -214,7 +239,7 @@ public class BTree {
 		 * number of keys by one. This is used 
 		 * when adding a key into the BTreeNode 
 		 */
-		private void incrementNumKeys(){
+		public void incrementNumKeys(){
 			numKeys++; //Increment number of keys by one
 		}
 		/**
@@ -223,22 +248,22 @@ public class BTree {
 		 * node or not. 
 		 * @return true if leaf, false if not
 		 */
-		private boolean getLeafStatus(){
+		public boolean getLeafStatus(){
 			return isLeaf;
 		}
-		
+
 		/**
 		 * Compares the two keys stored by the 
 		 * two BTreeNode objects. 
 		 * @param obj2
 		 * @return key - obj2.getKey()
 		 */
-		private long compareTo(BTreeNode obj2, int i){
+		public long compareTo(BTreeNode obj2, int i){
 			return key - obj2.keys[i].getKey(); //Returns BTreeNode key - 
-										//Second BTreeNode key
+			//Second BTreeNode key
 		}
-	
-		
+
+
 	}
 
 	/**
@@ -249,7 +274,7 @@ public class BTree {
 	 * @author Josh White
 	 *
 	 */
-	public class Key{
+	public static class Key{
 		private long key;
 		private int frequency;
 
@@ -258,11 +283,11 @@ public class BTree {
 		 * @param key
 		 * @param frequency
 		 */
-		private Key(long key, int frequency){
+		public Key(long key, int frequency){
 			this.key = key; //Inserts the key into the object
 			this.frequency = frequency; //Inserts the frequency into the object
 		}
-		
+
 		/**
 		 * Getter method for returning the key at a particular index.
 		 * @return Key
