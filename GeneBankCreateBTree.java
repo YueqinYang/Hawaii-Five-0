@@ -24,11 +24,12 @@ public class GeneBankCreateBTree {
 			
 			// if the user specifies 0 for degree, the program will choose a optimum degree 
 			// based on the disk block size of 4096 bytes
-			if(!args[1].equals("0"){
 			degree = Integer.parseInt(args[1]);
-			}else{
-				degree = findOptimumDegree();
+			if(degree == 0){
+				degree = 102; 
+				// 4 + 4 + 4 + 4 * (2 * degree) + 8 * (2 * degree - 1) + 4 * (2 * degree - 1) <= 4096
 			}
+			
 			gbkFile = new File(args[2]);
 			sequenceLength = Integer.parseInt(args[3]);
 
@@ -37,6 +38,7 @@ public class GeneBankCreateBTree {
 				debugLevel = 0;
 			} else if (args.length == 5) {
 				cacheSize = Integer.parseInt(args[5]);
+				debugLevel = 0;
 			} else if(args.length == 6) {
 				cacheSize = Integer.parseInt(args[5]);
 				debugLevel = Integer.parseInt(args[6]);
@@ -48,7 +50,7 @@ public class GeneBankCreateBTree {
 
     // if cache is used the cache size shall be specified
     if(ifCache == 1 && args.length == 4){
-    System.error.println("please specify the cache size.");
+    System.err.println("ERROR: Cache will be used. Please specify the cache size.");
     System.exit(1);
     }
 		// check if the args are correct according to the program design and
@@ -57,7 +59,29 @@ public class GeneBankCreateBTree {
 			errorMessage();
 			System.exit(1);
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
+	
+	
+	
+	
+	
 	
 	
 	public static void findOptimumDegree(){
