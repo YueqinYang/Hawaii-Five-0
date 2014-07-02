@@ -78,43 +78,41 @@ public class GeneBankSearch {
                   	}
                   	
                   	
+                  	
+                  	
+                  	// get the time to start search
+                  	long startSearch = System.currentTimeMillis();
                   	// read the object from query file and search the frequency of each object in the BTree
 			try{
-				String str;
+			        String str;
 				str = (String) bufferReader.readLine();
 				while(str!=null){
+					//1.
+					//2.
+					if(debugLevel == 0){
+						if(the objecy is in BTree){
+							System.out.println(str + " " + ....getfrequency());
+						}else{
+					         	System.out.println(str + " not found in BTree.");	
+						}
+						
+					}
 					
-					
-					
-					
+				str = (String) bufferReader.readLine();	
+				}
 				}catch(IOException e){
 					e.printStackTrace();
 					System.exit(1);
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+			// get the time of finishing search	
+			long endSearch = System.currentTimeMillis();
+			
+			if(debugLevel == 0){
+				System.out.println("It takes " + (endSearch - startSearch) + " s to search the frequency of objects.");
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		}
-		
+			
+			
 		
 		
 		
