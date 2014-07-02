@@ -55,7 +55,30 @@ public class GeneBankSearch {
 			}
 			
 			
-			//read the object from query file and search in the BTree
+			
+			//read the query file and catch exception if not found
+			try{
+			fileReader = new FileReader(queryFile);
+			bufferReader = new BufferReader(fileReader);
+                  	}catch(FileNotFoundException e){
+                  		System.out.println("Query file not found")
+                  		System.exit(1);
+                  	}
+                  	
+                  	//get the time to build the BTree
+                  	long startBuild = System.currentTimeMillis();
+                  	/////////TODO EDITING building the BTree //////////
+                  	BTree btree = new BTree(btreeFile);              //
+                        ///////////////////////////////////////////////////
+                  	//get the time of finishing BTree building
+                  	long endBuild = System.currentTimeMillis();
+                  	
+                  	if(debugLevel == 0){
+                  		System.out.println("It takes " + (endBuild - startBuild) + " s to build the BTree.");
+                  	}
+                  	
+                  	
+                  	// read the object from query file and search the frequency of each object in the BTree
 			try{
 				String str;
 				str = (String) bufferReader.readLine();
