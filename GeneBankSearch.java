@@ -87,10 +87,10 @@ public class GeneBankSearch {
 			        String str;
 				str = (String) bufferReader.readLine();
 				while(str!=null){
-					//1.
-					//2.
+					//1. 
+					//2. 
 					if(debugLevel == 0){
-						if(the objecy is in BTree){
+						if(the object is in BTree){
 							System.out.println(str + " " + ....getfrequency());
 						}else{
 					         	System.out.println(str + " not found in BTree.");	
@@ -113,9 +113,6 @@ public class GeneBankSearch {
 		}
 			
 			
-		
-		
-		
 		
 		private static void errorMessage() {
 			System.err.println("It should have 4 or 5 or 6 command-line arguments, "
