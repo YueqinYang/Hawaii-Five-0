@@ -1,4 +1,4 @@
-import java.io.File;
+import java.io.*;
 
 
 public class GeneBankSearch {
@@ -45,8 +45,7 @@ public class GeneBankSearch {
 
                         // if the user choose to use cache, the cache size shall be specified
                         if(ifCache == 1 && args.length == 3){
-                 	System.out.println("ERROR: Please specify the cache size.")
-                        }
+                 	System.out.println("ERROR: Please specify the cache size.");
 			// check if the args are correct according to the program design and
 			// print the error message
 			if ((ifCache < 0 || ifCache > 1) || (cacheSize <0) || (debugLevel<0 || debugLevel>1)) {
@@ -59,7 +58,7 @@ public class GeneBankSearch {
 			//read the query file and catch exception if not found
 			try{
 			fileReader = new FileReader(queryFile);
-			bufferReader = new BufferReader(fileReader);
+			bufferReader = new BufferedReader(fileReader);
                   	}catch(FileNotFoundException e){
                   		System.out.println("Query file not found")
                   		System.exit(1);
@@ -99,7 +98,6 @@ public class GeneBankSearch {
 					}
 					
 				str = (String) bufferReader.readLine();	
-				}
 				}catch(IOException e){
 					e.printStackTrace();
 					System.exit(1);
